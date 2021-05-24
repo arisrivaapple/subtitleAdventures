@@ -1,0 +1,19 @@
+1
+00:00:00,000 --> 00:00:05,000
+[SpeakerOne] Hello friend
+
+2
+00:00:05,000 --> 00:00:10,000
+[SpeakerTwo] These are subtitles. Just all of the subtitles. I'm testing to see if my text overflow works correctly and I sure golly gee just hope it does. ^^^^^^^^^^^^^^^^
+
+3
+00:00:12,000 --> 00:00:14,000
+[SpeakerOne] You know...
+
+4
+00:00:17,000 --> 00:00:20,000
+[SpeakerTwo] for testing.
+
+5
+00:00:21,000 --> 00:00:28,000
+[SpeakerOne] :3c
