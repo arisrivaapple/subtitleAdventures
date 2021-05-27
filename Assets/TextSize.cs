@@ -17,7 +17,8 @@ namespace SubtitleSystem
             main = GameObject.Find("Main Camera");
             thisObject = gameObject;
             textHere = thisObject.GetComponent<TextMeshProUGUI>();
-            textHere.fontSize = main.GetComponent<Main>().subtitleFontSize;
+            textHere.fontSize = main.GetComponent<Main>().subtitleFontSize + main.GetComponent<Main>().subtitleFontSizeDif;
+            textHere.font = main.GetComponent<Main>().currFont;
         }
     }
 }

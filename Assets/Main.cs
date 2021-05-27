@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Globalization;
 using UnityEngine;
+using TMPro;
 
 namespace SubtitleSystem
 {
@@ -24,11 +25,15 @@ namespace SubtitleSystem
         public Boolean slowGameWhenNotLookingAtSpeaker;
         public Boolean subtitleBackground;
         public Boolean silhouettes;
+        public int subtitleFontSizeDif;
         public int subtitleFontSize;
         public GameObject subtitleCanvasObject;
         public Canvas subtitleDisplay;
         public Dictionary<string, Color> speakerColors;
         public TextAsset speakerColorDoc;
+
+        public TMP_FontAsset currFont;
+
         public SpeakerColorParser colorParser;//since th enumber and names of the speakers are defned once the dc is processed
         //i ccant find a way that people manually assign htme\//except if ppl want t do it in the code
         // Start is called before the first frame update
@@ -36,7 +41,8 @@ namespace SubtitleSystem
         void Start()
         {
             subtitleBackground = true;
-            subtitleFontSize = 60;
+            subtitleFontSize= 60;
+            subtitleFontSizeDif = 0;
             assignedSpeakerColors = true;
             subtitlesOn = false;
             //assigned colors speakers is a setting for the whole scene, but it can easily be set at the beuinning of a specfiic subtitle trigger (should i put the variable right in to the triggersS?)

@@ -2,18 +2,22 @@
 using System.Collections.Generic;
 using System.Security.Cryptography;
 using UnityEngine;
+using TMPro;
 
-public class fontID : MonoBehaviour
+namespace SubtitleSystem
 {
-    /*
-    public int fontSize;
-    public fontFont;
-    public string fontName;
-    // Start is called before the first frame update
-    public fontID(int size, font, string name)
+    public class fontID
     {
-        fontSize = size;
-        fontFont = font;
-        fontName = name;
-    }*/
+
+        public int fontSize;
+        public TMP_FontAsset fontFont;
+        public string fontName;
+        // Start is called before the first frame update
+        public fontID(TMP_FontAsset font, string name)
+        {
+            fontSize = 60; //size isnt automatically defined bec its igonna take some fiddling, have it in a second line to make this more obvious to users?
+            fontFont = font;
+            fontName = name;
+        }
+    }
 }
