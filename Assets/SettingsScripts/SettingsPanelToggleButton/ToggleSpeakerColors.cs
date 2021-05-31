@@ -18,12 +18,12 @@ namespace SubtitleSystem
         {
             if (check.activeSelf)
             {
-                main.GetComponent<Main>().showSpeakerColors = false;
+                main.GetComponent<Main>().assignedSpeakerColors = false;
                 check.SetActive(false);
             }
             else
             {
-                main.GetComponent<Main>().showSpeakerColors = true;
+                main.GetComponent<Main>().assignedSpeakerColors = true;
                 check.SetActive(true);
             }
         }

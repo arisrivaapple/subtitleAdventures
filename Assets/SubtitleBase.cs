@@ -13,6 +13,7 @@ namespace SubtitleSystem
 
     public class SubtitleBase
     {
+
         public string speakerTemp;
         public GameObject mainc;
         public SubtitleReader subtitleReader = null;
@@ -40,7 +41,7 @@ namespace SubtitleSystem
         {
             place = mainc.GetComponent<Main>().subtitleFontSize;
             subtitleReader.incrementTime(0.25);
-            if (tempUselessDictionary != null)
+            if (true) //previously if tempUselessDictionary != null
             {
                 //i think one of my main problems is that the code goes in a werid order and htat causes null exception mistakes
                 if (t % 1000 == 0)
@@ -59,9 +60,9 @@ namespace SubtitleSystem
                         if (currLine != null)
                         {
                             subBox.text = currLine;
+                            speakerTemp = subtitleReader.getSpeaker();
                             if (mainc.GetComponent<Main>().assignedSpeakerColors)
                             {
-                                speakerTemp = subtitleReader.getSpeaker();
                                 subBox.color = tempUselessDictionary[speakerTemp];
                             }
                         }

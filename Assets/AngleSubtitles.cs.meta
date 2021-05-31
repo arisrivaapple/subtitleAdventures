@@ -3,10 +3,7 @@ guid: 4b4acdf50499ce441ac685fdf97ba181
 MonoImporter:
   externalObjects: {}
   serializedVersion: 2
-  defaultReferences:
-  - subtitleFile: {fileID: 4900000, guid: f1af11c31edced94295c47959efcb931, type: 3}
-  - player: {instanceID: 0}
-  - Speaker: {instanceID: 0}
+  defaultReferences: []
   executionOrder: 0
   icon: {instanceID: 0}
   userData: 

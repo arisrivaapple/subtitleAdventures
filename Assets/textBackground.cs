@@ -27,7 +27,7 @@ namespace SubtitleSystem
         {
             //start runs twice here for some reason???
             main = GameObject.Find("Main Camera");
-
+            main.GetComponent<Main>().textBackground = thisObject;
             thisObject = gameObject;
             textHere = thisObject.GetComponent<TextMeshProUGUI>();
             panel = GetComponent<Image>();
@@ -39,9 +39,7 @@ namespace SubtitleSystem
             clear.a = 0f;
         }
 
-        //PROBLEM!!!!
-
-        /*void Update()
+        void Update()
         {
             //should i add a transparency slider that the user can use as well?
             if (main.GetComponent<Main>().subtitleBackground)
@@ -55,6 +53,6 @@ namespace SubtitleSystem
                 panel.color = clear;
             }//panel turns null between updates?????
             //but doesnt seem to do anything to justify that???????
-        }*/
+        }
     }
 }

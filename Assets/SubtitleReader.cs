@@ -48,7 +48,7 @@ namespace SubtitleSystem
         public void parseSubtitles(String text)
         {
             //shoudl i/can is  declare as a subtitle type queue?
-            string[] seperator = { "\r\n" };
+            string[] seperator = { "\r\n", "\n" }; //or \r\n
             string[] lines = (text.ToString()).Split(seperator, StringSplitOptions.None);
             int i = 0;
             Regex line1 = new Regex(@"\d+");
@@ -120,7 +120,7 @@ namespace SubtitleSystem
                     //display subtitle
 
                     speaker = nextSubtitle.getSpeaker();
-                    if (mainc.GetComponent<Main>().speakerNames) 
+                    if (mainc.GetComponent<Main>().showSpeakerNames) 
                     {
                         return "[" + speaker + "] " + nextSubtitle.getText();
                     }

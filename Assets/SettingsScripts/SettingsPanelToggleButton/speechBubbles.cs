@@ -18,12 +18,12 @@ namespace SubtitleSystem
         {
             if (check.activeSelf)
             {
-                main.GetComponent<Main>().speechBubbles = false;
+                main.GetComponent<Main>().showSpeechBubble = false;
                 check.SetActive(false);
             }
             else
             {
-                main.GetComponent<Main>().speechBubbles = true;
+                main.GetComponent<Main>().showSpeechBubble = true;
                 check.SetActive(true);
             }
         }

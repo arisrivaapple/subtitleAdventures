@@ -18,12 +18,12 @@ namespace SubtitleSystem
         {
             if (check.activeSelf)
             {
-                main.GetComponent<Main>().attachSubtitles = false;
+                main.GetComponent<Main>().showSpeakerArrows = false;
                 check.SetActive(false);
             }
             else
             {
-                main.GetComponent<Main>().attachSubtitles = true;
+                main.GetComponent<Main>().showSpeakerArrows = true;
                 check.SetActive(true);
             }
         }

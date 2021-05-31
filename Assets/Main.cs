@@ -18,10 +18,11 @@ namespace SubtitleSystem
         public Boolean sameSubtitleStyle;
         public Boolean attachSubtitles;
         public Boolean showSpeakerNames;
+        public Boolean showSpeakerArrows;
         public Boolean dragSubtitles;
         public Boolean highlightSpeaker;
         public Boolean showSpeakerColors;
-        public Boolean speechBubbles;
+        public Boolean showSpeechBubble;
         public Boolean slowGameWhenNotLookingAtSpeaker;
         public Boolean subtitleBackground;
         public Boolean silhouettes;
@@ -31,6 +32,7 @@ namespace SubtitleSystem
         public Canvas subtitleDisplay;
         public Dictionary<string, Color> speakerColors;
         public TextAsset speakerColorDoc;
+        public GameObject textBackground;
 
         public TMP_FontAsset currFont;
 
@@ -40,17 +42,14 @@ namespace SubtitleSystem
         public Boolean subtitlesOn;
         void Start()
         {
-            subtitleBackground = true;
+            textBackground = null;
             subtitleFontSize= 60;
             subtitleFontSizeDif = 0;
-            assignedSpeakerColors = true;
             subtitlesOn = false;
             //assigned colors speakers is a setting for the whole scene, but it can easily be set at the beuinning of a specfiic subtitle trigger (should i put the variable right in to the triggersS?)
+            //weird to figur eout how people will set this if they dont have a file....
             colorParser = new SpeakerColorParser();
-            if (assignedSpeakerColors)
-            {
-                speakerColors = colorParser.parse(speakerColorDoc);
-            }
+            speakerColors = colorParser.parse(speakerColorDoc);
             speakerNames = false;
         }
 

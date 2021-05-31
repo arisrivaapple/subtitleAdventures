@@ -27,7 +27,7 @@ namespace SubtitleSystem
         {
             Dictionary<string, Color> speakersColors = new Dictionary<string, Color>();
             string text = txt.text;
-            string[] seperator = { "\r\n" };
+            string[] seperator = { "\r\n", "\n" };
             string[] lines = (text.ToString()).Split(seperator, StringSplitOptions.None);
             Regex speakerWithColorAssigned = new Regex(@".* = .*");
             for (int i = 0; i < lines.Length; i++) { // is this flow proper? feels a li weird
@@ -50,6 +50,10 @@ namespace SubtitleSystem
                 string sideSpeaker = lines[i].Substring(0, equalsSignIndex - 1);
                 string[] seperator2 = { ", " };
                 string[] colors = (lines[i].ToString()).Split(seperator2, StringSplitOptions.None);
+                if (equalsSignIndex == -1)
+                {
+                    throw new System.InvalidOperationException("Text not in correct format.");
+                }
                 float color1 = float.Parse(colors[0].Substring(equalsSignIndex + 3, colors[0].Length - (equalsSignIndex + 3)));
                 float color2 = float.Parse(colors[1].Substring(0, colors[1].Length));
                 float color3 = float.Parse(colors[2].Substring(0, colors[2].Length - 1));
