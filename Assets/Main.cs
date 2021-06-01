@@ -26,6 +26,8 @@ namespace SubtitleSystem
         public Boolean slowGameWhenNotLookingAtSpeaker;
         public Boolean subtitleBackground;
         public Boolean silhouettes;
+        public double speakerFacingSpeed;
+        public double nonSpeakerFacingSpeed;
         public int subtitleFontSizeDif;
         public int subtitleFontSize;
         public GameObject subtitleCanvasObject;
@@ -42,6 +44,8 @@ namespace SubtitleSystem
         public Boolean subtitlesOn;
         void Start()
         {
+            speakerFacingSpeed = 10.0f;
+            nonSpeakerFacingSpeed = 5.0f;
             textBackground = null;
             subtitleFontSize= 60;
             subtitleFontSizeDif = 0;

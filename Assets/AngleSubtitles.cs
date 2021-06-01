@@ -63,8 +63,6 @@ namespace SubtitleSystem
         public GameObject Speaker;
         public float playerAngle;
         public Boolean speakerFaced;
-        public double speakerFacingSpeed;
-        public double nonSpeakerFacingSpeed;
         public float speakerAngle;
         public float speakerZ;
         public float speakerX;
@@ -129,8 +127,6 @@ namespace SubtitleSystem
             playerAngle = GameObject.Find("player").GetComponent<MoveRobot>().playerYAngle;//will this update as the variable updates?
             //i dont think so
             //decide if we want another class for the basic sbtitle displaer stuff
-            speakerFacingSpeed = 10.0;
-            nonSpeakerFacingSpeed = 5.0;
             ///we assume that initially the player isnt facing the speaker
             mostRecentSpeaker = player; //still feels like weird "fix"
             speakerFaced = false;
@@ -159,7 +155,7 @@ namespace SubtitleSystem
 
                     subBase = new SubtitleBase(subtitlesBox, subtitleFile);
                     subBase.assignDict();
-                    subBase.subtitleReader.setInternalTimerRate(nonSpeakerFacingSpeed);
+                    subBase.subtitleReader.setInternalTimerRate(mainCamr.GetComponent<Main>().nonSpeakerFacingSpeed);
                     subBase.assignDict();//thhis is only here bc for some reason subtitle base runs Before main??
                     triggeredOnce = true;
                     subtitlesTriggered = true;
@@ -170,7 +166,6 @@ namespace SubtitleSystem
 
         void Update()
         {
-
             getSpeakerAngle();
             if (mostRecentSpeaker != Speaker) 
             {
@@ -191,10 +186,11 @@ namespace SubtitleSystem
                         getSpeakerAngle();
                         x = Compass.transform.rotation.x;
                         y = Compass.transform.rotation.y;
+                        //negative speaker agles should have negative compass angle too
                         //modifying the Vector3, based on input multiplied by speed and time
-                        compassCurrentEulerAngles = new Vector3(x, y, justSpeakerAngle);
+                        compassCurrentEulerAngles = new Vector3(x, y, justSpeakerAngle - player.GetComponent<MoveRobot>().playerYAngle);
                         //moving the value of the Vector3 into Quanternion.eulerAngle format
-                        compassCurrentRotation.eulerAngles = compassCurrentEulerAngles;
+                        compassCurrentRotation.eulerAngles = compassCurrentEulerAngles; //threw an error?
                         //apply the Quaternion.eulerAngles change to the gameObject
                         Compass.transform.rotation = compassCurrentRotation;
                     }
@@ -247,7 +243,7 @@ namespace SubtitleSystem
                             y = Compass.transform.rotation.y;
 
                             //modifying the Vector3, based on input multiplied by speed and time
-                            compassCurrentEulerAngles = new Vector3(x, y, justSpeakerAngle - player.GetComponent<MoveRobot>().playerYAngle);
+                            compassCurrentEulerAngles = new Vector3(x, y, -speakerAngle);
                             //moving the value of the Vector3 into Quanternion.eulerAngle format
                             compassCurrentRotation.eulerAngles = compassCurrentEulerAngles;
 
@@ -278,7 +274,7 @@ namespace SubtitleSystem
                         leftArrow.SetActive(false);
                         speakerFaced = false;
                         //when there's a break in the subtittlwa, thew siubtitle speed speeds up to speakerFacingSpeed
-                        subBase.subtitleReader.setInternalTimerRate(speakerFacingSpeed);
+                        subBase.subtitleReader.setInternalTimerRate(mainCamr.GetComponent<Main>().speakerFacingSpeed);
                         lightSpeaker(false);
                         changeText(false);
                         //Compass.SetActive(false);
@@ -297,8 +293,8 @@ namespace SubtitleSystem
                         if (Equals("true", speakerPos) && (checkVisualSpeaker()))
                         {
                             speakerFaced = true;
-                            double tempor = speakerFacingSpeed;
-                            subBase.subtitleReader.setInternalTimerRate(speakerFacingSpeed);
+                            double tempor = mainCamr.GetComponent<Main>().speakerFacingSpeed;
+                            subBase.subtitleReader.setInternalTimerRate(mainCamr.GetComponent<Main>().speakerFacingSpeed);
                             rightArrow.SetActive(false);
                             leftArrow.SetActive(false);
 
@@ -330,8 +326,8 @@ namespace SubtitleSystem
                             {
                                 speakerFaced = false;
                                 //could just have a fiunction that did all the updates related to speakerFaced?
-                                double tempor = nonSpeakerFacingSpeed;
-                                subBase.subtitleReader.setInternalTimerRate(nonSpeakerFacingSpeed);
+                                double tempor = mainCamr.GetComponent<Main>().nonSpeakerFacingSpeed;
+                                subBase.subtitleReader.setInternalTimerRate(mainCamr.GetComponent<Main>().nonSpeakerFacingSpeed);
                                 if (speakerArrows)
                                 {
                                     if (Equals("left", speakerPos))
@@ -356,8 +352,8 @@ namespace SubtitleSystem
                             //Compass.SetActive(false);
                             speakerFaced = false;
                         //could just have a fiunction that did all the updates related to speakerFaced?
-                        double tempor = nonSpeakerFacingSpeed;
-                        subBase.subtitleReader.setInternalTimerRate(nonSpeakerFacingSpeed);
+                        double tempor = mainCamr.GetComponent<Main>().speakerFacingSpeed;
+                        subBase.subtitleReader.setInternalTimerRate(mainCamr.GetComponent<Main>().speakerFacingSpeed);
                         Speaker = null;
                         speakerTag = "";
                         subtitlesTriggered = false;
@@ -471,15 +467,13 @@ namespace SubtitleSystem
                 playerZ = player.transform.position.z;
                 playerX = player.transform.position.x;
                 UnityEngine.Debug.Log(speakerAngle);
-
+                //just walk through the math agnle
                 //speaker angle is the nearest angle in this case
-                speakerAngle = 90 - (180.0f / Mathf.PI) * (Mathf.Atan(Math.Abs(speakerZ - playerZ) / Math.Abs(speakerX - playerX)));
-                speakerAngleText.text = "og speaker angle: " + speakerAngle;
-                justSpeakerAngle = speakerAngle;
-                speakerAngle = speakerAngle - player.GetComponent<MoveRobot>().playerYAngle;
+                justSpeakerAngle = -(180.0f / Mathf.PI) * (Mathf.Atan((speakerX - playerX) / (speakerZ - playerZ)));
+                speakerAngleText.text = "og speaker angle: " + justSpeakerAngle;
+                speakerAngle = -justSpeakerAngle + player.GetComponent<MoveRobot>().playerYAngle;
                 playerYAngleText.text = ("play Y angle: " + player.GetComponent<MoveRobot>().playerYAngle);
                 totalFinalAngleText.text = "speaker minus play Y angle: " + speakerAngle;
-                fillCircleConvertAngleText.text = "full circle convert final angle: " + fullCircleConvert(speakerAngle);
                 return fullCircleConvert(speakerAngle);
             }
             return 0.0f;
@@ -496,7 +490,6 @@ namespace SubtitleSystem
             if (Speaker != null)
             {
                 //if theres no distance, it counts as looking at the speaker--implement
-                Speaker = GameObject.Find(speakerTag);
                 speakerZ = Speaker.transform.position.z;
                 speakerX = Speaker.transform.position.x;
                 playerZ = player.transform.position.z;

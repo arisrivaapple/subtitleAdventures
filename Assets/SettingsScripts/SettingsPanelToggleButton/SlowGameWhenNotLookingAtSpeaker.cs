@@ -13,18 +13,22 @@ namespace SubtitleSystem
         void Start()
         {
             main = GameObject.Find("Main Camera");
+            //to set this as true by default
+            ToggleSettings();
         }
 
         public void ToggleSettings()
         {
             if (check.activeSelf)
             {
-                main.GetComponent<Main>().slowGameWhenNotLookingAtSpeaker = false;
+                //false
+                main.GetComponent<Main>().nonSpeakerFacingSpeed = main.GetComponent<Main>().speakerFacingSpeed;
                 check.SetActive(false);
             }
             else
             {
-                main.GetComponent<Main>().slowGameWhenNotLookingAtSpeaker = true;
+                //true
+                main.GetComponent<Main>().nonSpeakerFacingSpeed = main.GetComponent<Main>().speakerFacingSpeed/2;
                 check.SetActive(true);
             }
         }
